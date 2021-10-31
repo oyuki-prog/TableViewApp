@@ -61,6 +61,20 @@ class TableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
+        {
+            return true
+        }
+
+        //スワイプしたセルを削除　※arrayNameは変数名に変更してください
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let userDefaults = UserDefaults.standard
+            if editingStyle == UITableViewCell.EditingStyle.delete {
+                taskArray.remove(at: indexPath.row)
+                userDefaults.set(taskArray, forKey: "add")
+                tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
+            }
+        }
 
     /*
     // Override to support conditional editing of the table view.
